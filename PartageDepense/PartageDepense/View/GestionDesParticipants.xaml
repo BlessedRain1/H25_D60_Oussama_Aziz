@@ -1,0 +1,102 @@
+﻿<UserControl x:Class="PartageDepense.View.GestionDesParticipants"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PartageDepense.View"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodel="clr-namespace:PartageDepense.ViewModel"
+             xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
+             d:DataContext="{d:DesignInstance Type=viewmodel:GestionDesParticipantsVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+
+    <!-- Conteneur principal : GroupBox pour la gestion des clients -->
+    <GroupBox x:Name="ParticipantsGroupBox" Header="Liste de participants" Padding="10" >
+
+        <GroupBox.HeaderTemplate>
+            <DataTemplate>
+                <StackPanel
+Orientation="Horizontal">
+                    <materialDesign:PackIcon
+            Width="50"
+            Height="60"
+            VerticalAlignment="Center"
+            Kind="Account" 
+            />  
+                    <TextBlock
+    Margin="8,0,0,0"
+    VerticalAlignment="Center"
+    Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+    Text="{Binding}" />
+                </StackPanel>
+            </DataTemplate>
+        </GroupBox.HeaderTemplate>
+
+        <!-- Grille pour organiser la liste et les actions -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <!-- Colonne principale pour la liste des clients -->
+                <ColumnDefinition Width="*" />
+                <!-- Colonne pour les actions (ajouter/supprimer) -->
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- ListView pour afficher la liste des participants -->
+            <ListView x:Name="lesParticipants" Margin="5" Grid.Column="0" ItemsSource="{Binding LesParticipants}" SelectedItem="{Binding ParticipantSelectionne}">
+                <ListView.View>
+                    <GridView>
+                        <!-- Colonne pour afficher les noms des participants -->
+                        <GridViewColumn x:Name="ParticipantsNameColumn" Header="Nom participant" Width="auto" DisplayMemberBinding="{Binding Nom}"/>
+                        <!-- Colonne pour afficher les prénoms des participants -->
+                        <GridViewColumn x:Name="ParticipantsSurnameColumn" Header="Prénom participant" Width="auto" DisplayMemberBinding="{Binding Prenom}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <!-- Panneau pour les actions (formulaire et boutons) -->
+            <WrapPanel Orientation="Vertical" Grid.Column="1" Margin="10">
+
+                <!-- Formulaire pour ajouter un client -->
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <!-- Ligne pour le label et le champ de saisie du nom  -->
+                        <RowDefinition />
+                        <!-- Ligne pour le label et le champ de saisie du prénom -->
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <!-- Colonne pour le label -->
+                        <ColumnDefinition Width="Auto" />
+                        <!-- Colonne pour le champ de saisie -->
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Label pour indiquer le champ de saisie du nom -->
+                    <Label x:Name="ClientsNameLabel"  Grid.Row="0" Grid.Column="0" Content="Nom :" VerticalAlignment="Center" />
+                    <!-- TextBox pour saisir le nom du client -->
+                    <TextBox Grid.Row="0" Margin="0,0,0,10" Grid.Column="1" Padding="5" Text="{Binding Nom}" Foreground="Black" />
+
+                    <!-- Label pour indiquer le champ de saisie du nom -->
+                    <Label x:Name="ClientsSurnameLabel" Grid.Row="1" Grid.Column="0" Content="Prénom :" VerticalAlignment="Center" />
+                    <!-- TextBox pour saisir le nom du client -->
+                    <TextBox Grid.Row="1" Margin="0,0,0,10" Grid.Column="1" Padding="5" Text="{Binding Prenom}" Foreground="Black"/>
+                </Grid>
+
+                <!-- Bouton pour ajouter un nouveau client -->
+                <Button x:Name="AddClientButton" Content="Ajouter" 
+                        
+                        FontWeight="DemiBold" 
+                        Padding="5" Margin="0,0,0,10" 
+                        Command="{Binding AjouterParticipantCommand}" 
+                        />
+
+                <!-- Bouton pour supprimer le client sélectionné -->
+                <Button x:Name="DeleteClientButton" Content="Supprimer" 
+                        FontWeight="DemiBold" 
+                        Padding="5" 
+                         Command="{Binding SupprimerParticipantCommand}"/>
+            </WrapPanel>
+        </Grid>
+    </GroupBox>
+</UserControl>

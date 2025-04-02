@@ -1,0 +1,68 @@
+{
+  "LesParticipants": [
+    {
+      "Nom": "Jacob",
+      "Prenom": "St-Hilaire"
+    },
+    {
+      "Nom": "Jacob",
+      "Prenom": "2"
+    }
+  ],
+  "LesActivites": [
+    {
+      "NomActivite": "Activite",
+      "LesParticipantsActivite": [
+        {
+          "Nom": "Jacob",
+          "Prenom": "St-Hilaire"
+        },
+        {
+          "Nom": "Jacob",
+          "Prenom": "2"
+        }
+      ],
+      "LesDepenses": [
+        {
+          "Montant": 50,
+          "Description": "Test",
+          "Date": "2025-03-04T00:00:00",
+          "Participant": {
+            "Nom": "Jacob",
+            "Prenom": "St-Hilaire"
+          }
+        },
+        {
+          "Montant": 50,
+          "Description": "Test2",
+          "Date": "2025-03-03T00:00:00",
+          "Participant": {
+            "Nom": "Jacob",
+            "Prenom": "2"
+          }
+        }
+      ],
+      "LesRemboursements": [],
+      "ParticipantsSoldes": [
+        {
+          "Participant": {
+            "Nom": "Jacob",
+            "Prenom": "St-Hilaire"
+          },
+          "Solde": 50,
+          "Etat": "non r\u00E9cup\u00E9r\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "Jacob",
+            "Prenom": "2"
+          },
+          "Solde": 50,
+          "Etat": "non r\u00E9cup\u00E9r\u00E9"
+        }
+      ]
+    }
+  ],
+  "Date": "2025-03-30T11:54:33.318902-04:00",
+  "Description": null
+}

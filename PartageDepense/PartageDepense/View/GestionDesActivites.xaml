@@ -1,0 +1,289 @@
+﻿<UserControl x:Class="PartageDepense.View.GestionDesActivites"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PartageDepense.View"
+             xmlns:viewmodel="clr-namespace:PartageDepense.ViewModel"
+             d:DataContext="{d:DesignInstance Type=viewmodel:GestionDesActivitesVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="900">
+    
+    
+    <!--#region Ajout de ressources à la fenêtre -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!-- Importation de dictionnaires de styles -->
+            <ResourceDictionary.MergedDictionaries>
+                
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Référencement de convertisseurs -->
+            <local:IsSelectedToBoolean x:Key="IsSelectedToBoolean"/>
+            <local:OnclickToVisibility x:Key="OnClickToVisibility"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--#endregion-->
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- First column for the Activity List -->
+            <ColumnDefinition Width="300" />
+            <!-- Second column for the Tabs and Details -->
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Left Side: Activity List -->
+        <GroupBox x:Name="ActivityList" Header="Liste d'activités" Grid.Column="0" Margin="10" Foreground="Black">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                
+                <ListView Margin="5" x:Name="lesActivites" Grid.Row="0" ItemsSource="{Binding LesActivites}" SelectedItem="{Binding ActiviteSelectionnee}" >
+                    <ListView.View >
+                        <GridView>
+                            <!-- Column for Activity Name -->
+                            <GridViewColumn x:Name="ActivityNameColumn" Header="Nom Activité" Width="auto" DisplayMemberBinding="{Binding NomActivite}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+                <materialDesign:DialogHost
+                    DialogTheme="Inherit" Grid.Row="1" Height="70" Width="250" VerticalAlignment="Top">
+                    <materialDesign:DialogHost.DialogContent>
+                        <StackPanel
+                            Margin="16">
+                            <TextBlock x:Name="AddActivity"
+                                Text="Ajouter une activité." />
+                            <TextBox
+                                x:Name="activiteTextbox"
+                                Margin="0,8,0,0"
+                                HorizontalAlignment="Stretch" Text="{Binding NomActivite}"/>
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal">
+                                <Button x:Name="Accept"
+                                    Margin="0,8,8,0"
+                                    Command="{Binding AjouterActiviteCommand}"
+                                    Content="ACCEPTER"
+                                    IsDefault="True"
+                                    Style="{StaticResource MaterialDesignFlatButton}"> 
+                                    <Button.CommandParameter>
+                                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                            True
+                                        </system:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <Button x:Name="Cancel"
+                                    Margin="0,8,8,0"
+                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                    Content="ANNULER"
+                                    IsCancel="True"
+                                    Style="{StaticResource MaterialDesignFlatButton}">  
+                                    <Button.CommandParameter>
+                                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                            False
+                                        </system:Boolean>
+                                    </Button.CommandParameter>
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                    <Border
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        BorderThickness="1"
+                        ClipToBounds="True"> 
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition
+                                    Height="auto" />
+                                <RowDefinition
+                                    Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <materialDesign:ColorZone
+                                Grid.Row="1"
+                                Effect="{DynamicResource MaterialDesignShadowDepth5}"
+                                Mode="PrimaryMid">
+                                <TextBlock x:Name="NewActivity"
+                                  Margin="16"
+                                  Text="Nouvelle Activité" /> 
+                            </materialDesign:ColorZone>
+                            <Button
+                                Grid.Row="0"
+                                Height="45"
+                                Width="45"
+                                Margin="0,0,28,-20"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                Content="{materialDesign:PackIcon Kind=Plus,Size=22}"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}" />
+                        </Grid>
+                    </Border>
+                </materialDesign:DialogHost>
+
+                <StackPanel Grid.Row="2">
+                    <!-- Delete Activity Button -->
+                    <Button x:Name="DeleteActivityButton" Content="Supprimer Activité" Height="40" Padding="10" Margin="5" Command="{Binding SupprimerActiviteCommand}"/>
+                </StackPanel>
+
+                
+            </Grid>
+        </GroupBox>
+
+        <!-- Right Side: Action Tabs -->
+        <Grid Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox x:Name="OperationActivity" Header="Opérations dans l'activité" >
+                <TabControl  SelectionChanged="TabControl_SelectionChanged" Margin="5" FontSize="14"
+                             IsEnabled="{Binding ActiviteSelectionnee, Converter={StaticResource IsSelectedToBoolean}}">
+
+                    <!-- Tab for Assigning Expenses -->
+                    <TabItem x:Name="AssignExpenses" Header="Attribuer des dépenses">
+                        <!-- Content for Attribuer des Dépenses Tab -->
+                        <local:AttribuerDesDepenses x:Name="AttribuerDepenseTab" Margin="1" Visibility="Hidden" 
+                                                    ActiviteSelectionnee="{Binding ElementName=lesActivites, Path=SelectedItem}"
+                                                    />
+                    </TabItem>
+                    <!-- Tab for Reimbursement -->
+                    <TabItem x:Name="Refund" Header="Remboursements">
+                        <!-- Content for Remboursements Tab -->
+                        <local:Remboursements x:Name="RemboursementsTab" Margin="1" Visibility="Hidden"
+                                              ActiviteSelectionnee="{Binding ElementName=lesActivites, Path=SelectedItem}"/>
+                    </TabItem>
+                    <!-- Tab for Adding Participants -->
+                    <TabItem x:Name="AddParticipants" Header="Ajouter des Participants">
+                        <!-- Content for Ajouter des Participants Tab -->
+                        <local:AjouterDesParticipants x:Name="AjouterParticipantTab" Margin="1" Visibility="Hidden"
+                                                      ActiviteSelectionnee="{Binding ElementName=lesActivites, Path=SelectedItem}"/>
+                    </TabItem>
+                </TabControl>
+            </GroupBox>
+
+
+            <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right">
+                <Button x:Name="sauvegardeButton" Padding="5" Margin="5" Width="150" Content="Sauvegarder"  Command="{Binding SauvegarderDonneesCommand}"></Button>
+                
+                <!--#region Progress bar de l'état de la sauvegarde-->
+                <materialDesign:Card Visibility="{Binding IsCardVisible , Converter={StaticResource OnClickToVisibility}}"
+                Padding="4"
+                RenderTransformOrigin=".5,.5"
+                UniformCornerRadius="14">
+                                <ProgressBar Value="{Binding ProgressValue}"
+                x:Name="AnimatedProgressInCard"
+                Style="{StaticResource MaterialDesignCircularProgressBar}" />
+                                <materialDesign:Card.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform
+                    x:Name="ScaleTransform"
+                    ScaleX="0"
+                    ScaleY="0" />
+                                    </TransformGroup>
+                                </materialDesign:Card.RenderTransform>
+                                <materialDesign:Card.Style>
+                                    <Style
+                    TargetType="materialDesign:Card"
+                    BasedOn="{StaticResource {x:Type materialDesign:Card}}">
+                                        <Style.Resources>
+                                            <Storyboard
+                        x:Key="FadeIn"
+                        FillBehavior="HoldEnd">
+                                                <DoubleAnimationUsingKeyFrames
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                                    <EasingDoubleKeyFrame
+                            Value="0" />
+                                                    <EasingDoubleKeyFrame
+                            KeyTime="0:0:0.8"
+                            Value="1">
+                                                        <EasingDoubleKeyFrame.EasingFunction>
+                                                            <CircleEase
+                                EasingMode="EaseOut" />
+                                                        </EasingDoubleKeyFrame.EasingFunction>
+                                                    </EasingDoubleKeyFrame>
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                    <EasingDoubleKeyFrame
+                            Value="0" />
+                                                    <EasingDoubleKeyFrame
+                            KeyTime="0:0:0.8"
+                            Value="1">
+                                                        <EasingDoubleKeyFrame.EasingFunction>
+                                                            <CircleEase
+                                EasingMode="EaseOut" />
+                                                        </EasingDoubleKeyFrame.EasingFunction>
+                                                    </EasingDoubleKeyFrame>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                            <Storyboard
+                        x:Key="FadeOut">
+                                                <DoubleAnimationUsingKeyFrames
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                                                    <EasingDoubleKeyFrame
+                            Value="1" />
+                                                    <EasingDoubleKeyFrame
+                            KeyTime="0:0:0.8"
+                            Value="0">
+                                                        <EasingDoubleKeyFrame.EasingFunction>
+                                                            <CircleEase
+                                EasingMode="EaseOut" />
+                                                        </EasingDoubleKeyFrame.EasingFunction>
+                                                    </EasingDoubleKeyFrame>
+                                                </DoubleAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames
+                        Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                                                    <EasingDoubleKeyFrame
+                            Value="1" />
+                                                    <EasingDoubleKeyFrame
+                            KeyTime="0:0:0.8"
+                            Value="0">
+                                                        <EasingDoubleKeyFrame.EasingFunction>
+                                                            <CircleEase
+                                EasingMode="EaseOut" />
+                                                        </EasingDoubleKeyFrame.EasingFunction>
+                                                    </EasingDoubleKeyFrame>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </Style.Resources>
+                                        <Style.Triggers>
+                                            <DataTrigger
+                        Binding="{Binding ElementName=AnimatedProgressInCard, Path=Value}"
+                        Value="20">
+                                                <DataTrigger.EnterActions>
+                                                    <RemoveStoryboard
+                            BeginStoryboardName="FadeOut" />
+                                                    <BeginStoryboard
+                            Name="FadeIn"
+                            Storyboard="{StaticResource FadeIn}" />
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                            <DataTrigger
+                        Binding="{Binding ElementName=AnimatedProgressInCard, Path=Value}"
+                        Value="100">
+                                                <DataTrigger.EnterActions>
+                                                    <RemoveStoryboard
+                            BeginStoryboardName="FadeIn" />
+                                                    <BeginStoryboard
+                            Name="FadeOut"
+                            Storyboard="{StaticResource FadeOut}" />
+                                                </DataTrigger.EnterActions>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </materialDesign:Card.Style>
+                </materialDesign:Card>
+                <!--#endregion-->
+                
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

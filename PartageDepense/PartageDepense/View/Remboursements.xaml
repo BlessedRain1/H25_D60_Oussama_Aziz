@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="PartageDepense.View.Remboursements"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:PartageDepense.View"
+             xmlns:viewmodel="clr-namespace:PartageDepense.ViewModel"
+             xmlns:materialDesignColors="clr-namespace:MaterialDesignColors;assembly=MaterialDesignColors"
+             d:DataContext="{d:DesignInstance Type=viewmodel:GestionRemboursementsVM}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <!--#region Ajout de ressources à la fenêtre -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <!-- Importation de dictionnaires de styles -->
+            <ResourceDictionary.MergedDictionaries>
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Référencement de convertisseurs -->
+            <local:IsPositiveToBoolean x:Key="IsPBoolean"/>
+            <local:IsNegativeToBoolean x:Key="IsNBoolean"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <!--#endregion-->
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <GroupBox x:Name="AccountState" Header="États des comptes" Margin="5">
+
+                <GroupBox.HeaderTemplate>
+                    <DataTemplate>
+                        <StackPanel
+             Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                 Width="40"
+                 Height="40"
+                 VerticalAlignment="Center"
+                 Kind="Cash" 
+                 />
+                            <TextBlock
+                 Margin="8,0,0,0"
+                 VerticalAlignment="Center"
+                 Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                 Text="{Binding}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </GroupBox.HeaderTemplate>
+                
+                <ListView x:Name="lesSoldes" Margin="5" ItemsSource="{Binding ParticipantsSoldes}" SelectedItem="{Binding ParticipantSoldeSelectionne}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn x:Name="Participants" Header="Participants" Width="auto" DisplayMemberBinding="{Binding Participant.Nom}"/>
+                            <GridViewColumn x:Name="Solde" Header="Solde" Width="auto" DisplayMemberBinding="{Binding Solde , StringFormat={}{0:C2}, ConverterCulture=fr-CA}"/>
+                            <GridViewColumn x:Name="SoldeState" Header="État du solde" Width="auto" DisplayMemberBinding="{Binding Etat}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </GroupBox>
+       
+            <GroupBox x:Name="OperationParticipant" Grid.Row="1" Margin="10" Header="Opérations Du Participant" Width="300">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="Refund" Content="Rembourser"  Padding="5" Margin="5" Background="Green" Command="{Binding EffectuerRemboursementCommand}"  IsEnabled="{Binding ElementName=lesSoldes,Path=SelectedItem, Converter={StaticResource IsNBoolean}}"></Button>
+                    <Button x:Name="GetBack" Content="Récupérer" Padding="5" Margin="5" Background="Red" Command="{Binding RecupererMontantCommand}"  IsEnabled="{Binding ElementName=lesSoldes, Path=SelectedItem, Converter={StaticResource IsPBoolean}}"></Button>
+                </StackPanel>
+
+            </GroupBox>
+
+        </Grid>
+    </Grid>
+</UserControl>
