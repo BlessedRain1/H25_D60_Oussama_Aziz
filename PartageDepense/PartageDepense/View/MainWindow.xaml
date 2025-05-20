@@ -50,12 +50,13 @@
                    />
 
                 <Grid Grid.Column="2">
-
-                    <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="80" Height="20"
-                        x:Name="LanguageSelector" SelectionChanged="LanguageSelector_SelectionChanged">
-                        <ComboBoxItem Tag="en" Content="Anglais" />
-                        <ComboBoxItem Tag="fr" Content="Français"  IsSelected="True"/>
-                    </ComboBox>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,10,0">
+                        <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" Width="80" Height="20"
+                            x:Name="LanguageSelector" SelectionChanged="LanguageSelector_SelectionChanged">
+                            <ComboBoxItem Tag="en" Content="Anglais" />
+                            <ComboBoxItem Tag="fr" Content="Français"  IsSelected="True"/>
+                        </ComboBox>
+                    </StackPanel>
                 </Grid>
             </Grid>
         </materialDesign:ColorZone>
@@ -138,6 +139,24 @@
                         </StackPanel>
                     </TabItem.Header>
                     <local:ThemePalette CultureCode="{Binding ElementName=LanguageSelector, Path=SelectedItem.Tag}"/>
+                </TabItem>
+                <TabItem Foreground="White" x:Name="TabItemGraphique">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto">
+                            <materialDesign:PackIcon
+                Width="{StaticResource IconSize}"
+                Height="{StaticResource IconSize}"
+                HorizontalAlignment="Center"
+                Kind="ChartBar" />
+                            <TextBlock
+                HorizontalAlignment="Center"
+                FontSize="{StaticResource FontSize}"
+                Text="Graphique" />
+                        </StackPanel>
+                    </TabItem.Header>
+                    <Grid>
+                        <local:GraphiqueView x:Name="GraphiqueViewControl" Margin="10" />
+                    </Grid>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>

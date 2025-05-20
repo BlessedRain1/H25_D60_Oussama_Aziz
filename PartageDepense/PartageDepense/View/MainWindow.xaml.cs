@@ -39,6 +39,9 @@ namespace PartageDepense.View
             if (GestionActivitePage.DataContext != null)
                 GestionActivitePage.InitComponents();
 
+            // Initialiser le GraphiqueVM
+            var graphiqueVM = new GraphiqueVM(gestionnaire);
+            GraphiqueViewControl.DataContext = graphiqueVM;
         }
 
         private void GestionDesParticipants(object sender, RoutedEventArgs e)
@@ -130,6 +133,11 @@ namespace PartageDepense.View
         private void LanguageSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateLanguage();
+        }
+
+        private void ThemeToggle_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

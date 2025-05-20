@@ -226,6 +226,39 @@ namespace PartageDepense.Model
             _donneesModifiees = false;
             OnPropertyChanged(nameof(ParticipantsSoldes));
         }
+        /// <summary>
+        /// Génère une liste de données formatées pour le graphique des soldes par participant.
+        /// </summary>
+        /// <returns>Liste de GraphData représentant les soldes des participants.</returns>
+        public List<GraphData> ObtenirGraphiqueSoldes()
+        {
+            if (_participantsSoldes == null || !_participantsSoldes.Any())
+                return new List<GraphData>();
 
+            return _participantsSoldes
+                .Select(ps => new GraphData(
+                    $"{ps.Participant.Prenom} {ps.Participant.Nom}",
+                    (double)ps.Solde)) // Conversion de decimal → double
+                .ToList();
+        }
+
+        /// <summary>
+        /// Génère une liste de données formatées pour le graphique de répartition des dépenses par participant.
+        /// Filtre les dépenses sans participant associé.
+        /// </summary>
+        /// <returns>Liste de GraphData représentant les dépenses par participant.</returns>
+        public List<GraphData> ObtenirGraphiqueDepenses()
+        {
+            if (LesDepenses == null || !LesDepenses.Any())
+                return new List<GraphData>();
+
+            return LesDepenses
+                .Where(d => d.Participant != null) // Filtre les dépenses qui n'ont pas de participant valide
+                .GroupBy(d => d.Participant)
+                .Select(g => new GraphData(
+                    $"{g.Key?.Prenom} {g.Key?.Nom}", // Utilise l'opérateur ?. pour gérer un participant potentiellement null (bien que déjà filtré)
+                    (double)g.Sum(d => d.Montant))) // g.Key est le Participant
+                .ToList();
+        }
     }
 }

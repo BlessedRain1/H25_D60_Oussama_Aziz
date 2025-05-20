@@ -7,6 +7,30 @@
     {
       "Nom": "Jacob",
       "Prenom": "2"
+    },
+    {
+      "Nom": "kader",
+      "Prenom": "hamid"
+    },
+    {
+      "Nom": "oussama",
+      "Prenom": "aziz"
+    },
+    {
+      "Nom": "gaetabn",
+      "Prenom": "ahha"
+    },
+    {
+      "Nom": "efef",
+      "Prenom": "efef"
+    },
+    {
+      "Nom": "wwfrg",
+      "Prenom": "grgrewe"
+    },
+    {
+      "Nom": "egegre",
+      "Prenom": "wedfwdfedf"
     }
   ],
   "LesActivites": [
@@ -43,26 +67,145 @@
         }
       ],
       "LesRemboursements": [],
+      "ParticipantsSoldes": []
+    },
+    {
+      "NomActivite": "cinema",
+      "LesParticipantsActivite": [
+        {
+          "Nom": "Jacob",
+          "Prenom": "St-Hilaire"
+        },
+        {
+          "Nom": "kader",
+          "Prenom": "hamid"
+        },
+        {
+          "Nom": "oussama",
+          "Prenom": "aziz"
+        },
+        {
+          "Nom": "gaetabn",
+          "Prenom": "ahha"
+        },
+        {
+          "Nom": "egegre",
+          "Prenom": "wedfwdfedf"
+        },
+        {
+          "Nom": "wwfrg",
+          "Prenom": "grgrewe"
+        }
+      ],
+      "LesDepenses": [
+        {
+          "Montant": 25,
+          "Description": "Pizza",
+          "Date": "2025-04-16T00:00:00",
+          "Participant": {
+            "Nom": "oussama",
+            "Prenom": "aziz"
+          }
+        },
+        {
+          "Montant": 40,
+          "Description": "cochioc",
+          "Date": "2025-04-16T00:00:00",
+          "Participant": {
+            "Nom": "kader",
+            "Prenom": "hamid"
+          }
+        },
+        {
+          "Montant": 14,
+          "Description": "coca",
+          "Date": "2025-04-17T00:00:00",
+          "Participant": {
+            "Nom": "Jacob",
+            "Prenom": "St-Hilaire"
+          }
+        },
+        {
+          "Montant": 7,
+          "Description": "burger",
+          "Date": "2025-04-17T00:00:00",
+          "Participant": {
+            "Nom": "gaetabn",
+            "Prenom": "ahha"
+          }
+        },
+        {
+          "Montant": 60,
+          "Description": "chips",
+          "Date": "2025-04-18T00:00:00",
+          "Participant": {
+            "Nom": "oussama",
+            "Prenom": "aziz"
+          }
+        },
+        {
+          "Montant": 20,
+          "Description": "eau",
+          "Date": "2025-04-08T00:00:00",
+          "Participant": {
+            "Nom": "kader",
+            "Prenom": "hamid"
+          }
+        }
+      ],
+      "LesRemboursements": [],
       "ParticipantsSoldes": [
         {
           "Participant": {
             "Nom": "Jacob",
             "Prenom": "St-Hilaire"
           },
-          "Solde": 50,
+          "Solde": -13.666666666666666666666666667,
+          "Etat": "non rembours\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "kader",
+            "Prenom": "hamid"
+          },
+          "Solde": 32.333333333333333333333333333,
           "Etat": "non r\u00E9cup\u00E9r\u00E9"
         },
         {
           "Participant": {
-            "Nom": "Jacob",
-            "Prenom": "2"
+            "Nom": "oussama",
+            "Prenom": "aziz"
           },
-          "Solde": 50,
+          "Solde": 57.333333333333333333333333333,
           "Etat": "non r\u00E9cup\u00E9r\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "gaetabn",
+            "Prenom": "ahha"
+          },
+          "Solde": -20.666666666666666666666666667,
+          "Etat": "non rembours\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "egegre",
+            "Prenom": "wedfwdfedf"
+          },
+          "Solde": -27.666666666666666666666666667,
+          "Etat": "non rembours\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "wwfrg",
+            "Prenom": "grgrewe"
+          },
+          "Solde": -27.666666666666666666666666667,
+          "Etat": "non rembours\u00E9"
         }
       ]
     }
   ],
-  "Date": "2025-03-30T11:54:33.318902-04:00",
+  "Date": "2025-05-20T18:12:54.9007216-04:00",
   "Description": null
 }
