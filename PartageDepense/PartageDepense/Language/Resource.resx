@@ -153,10 +153,6 @@
   <data name="Liste des participants" xml:space="preserve">
     <value />
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Nom :" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
-  </data>
   <data name="Nom Activité" xml:space="preserve">
     <value />
   </data>
@@ -263,6 +259,45 @@
     <value />
   </data>
   <data name="Couleur secondaire" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Type de graphique :" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Soldes par participant" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Dépenses par participant" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Période :" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Trier par :" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Valeur" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Nom" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Croissant" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Exporter graphique" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Nom :" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Sélectionnez une activité :" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Au :" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Graphique" xml:space="preserve">
     <value />
   </data>
 </root>

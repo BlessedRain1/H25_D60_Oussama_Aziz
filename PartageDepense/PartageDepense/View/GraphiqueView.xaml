@@ -6,7 +6,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              mc:Ignorable="d"
-             xmlns:local="clr-namespace:PartageDepense.View">
+             xmlns:local="clr-namespace:PartageDepense.View"
+             xmlns:res="clr-namespace:PartageDepense.Language">
 
     <UserControl.Resources>
         <!-- Convertisseur pour masquer/afficher des éléments en fonction d'une valeur booléenne. -->
@@ -32,30 +33,16 @@
         <!-- Sélection activité -->
         <!-- Permet à l'utilisateur de choisir l'activité dont il souhaite visualiser les données. -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,10">
-            <!-- Texte descriptif pour le ComboBox d'activité. -->
-            <TextBlock Text="Sélectionnez une activité : " VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
-            <!-- ComboBox lié à la liste des activités et à l'activité sélectionnée dans le ViewModel. -->
-            <ComboBox
-                  ItemsSource="{Binding ListeActivites}"
-                  SelectedItem="{Binding ActiviteSelectionnee}"
-                  DisplayMemberPath="NomActivite"
-                  Width="200"/>
+            <TextBlock x:Name="SelectActivityLabel" Text="Sélectionnez une activité :" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
+            <ComboBox ItemsSource="{Binding ListeActivites}" SelectedItem="{Binding ActiviteSelectionnee}" DisplayMemberPath="NomActivite" Width="200"/>
         </StackPanel>
 
         <!-- Choix type de graphique -->
         <!-- Permet à l'utilisateur de choisir d'afficher le graphique des soldes ou celui des dépenses. -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,10" VerticalAlignment="Center">
-            <!-- Texte descriptif pour les boutons radio. -->
-            <TextBlock Text="Type de graphique : " VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
-            <!-- Bouton radio pour sélectionner l'affichage des soldes par participant. -->
-            <RadioButton Content="Soldes par participant"
-                         GroupName="GraphType"
-                         IsChecked="{Binding IsSoldeSelected}" />
-            <!-- Bouton radio pour sélectionner l'affichage des dépenses par participant. -->
-            <RadioButton Content="Dépenses par participant"
-                         GroupName="GraphType"
-                         IsChecked="{Binding IsDepenseSelected}" 
-                         Margin="20,0,0,0"/>
+            <TextBlock x:Name="ChartTypeLabel" Text="Type de graphique :" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
+            <RadioButton x:Name="BalanceRadio" Content="Soldes par participant" GroupName="GraphType" IsChecked="{Binding IsSoldeSelected}" />
+            <RadioButton x:Name="ExpenseRadio" Content="Dépenses par participant" GroupName="GraphType" IsChecked="{Binding IsDepenseSelected}" Margin="20,0,0,0"/>
         </StackPanel>
 
         <!-- Filtres et tri -->
@@ -68,24 +55,25 @@
 
             <!-- Filtre par période -->
             <StackPanel Grid.Column="0" Orientation="Horizontal" Margin="0,0,20,0">
-                <TextBlock Text="Période : " VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <TextBlock x:Name="PeriodLabel" Text="Période :" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
                 <DatePicker SelectedDate="{Binding DateDebut}" Width="120" Margin="0,0,8,0"/>
-                <TextBlock Text="au" VerticalAlignment="Center" Margin="0,0,8,0"/>
+                <TextBlock x:Name="ToLabel" Text="Au " VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
                 <DatePicker SelectedDate="{Binding DateFin}" Width="120"/>
             </StackPanel>
 
             <!-- Tri -->
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <TextBlock Text="Trier par : " VerticalAlignment="Center" Margin="0,0,8,0"/>
-                <ComboBox Width="120" Margin="0,0,8,0">
-                    <ComboBoxItem Content="Valeur" IsSelected="{Binding TriParValeur}"/>
-                    <ComboBoxItem Content="Nom" IsSelected="{Binding TriParValeur, Converter={StaticResource InverseBooleanConverter}}"/>
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock x:Name="SortByLabel" Text="Trier par :" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
+                <ComboBox x:Name="SortComboBox" Width="120" Margin="0,0,8,0">
+                    <ComboBoxItem x:Name="ValueSortItem" Content="Valeur" IsSelected="{Binding TriParValeur}"/>
+                    <ComboBoxItem x:Name="NameSortItem" Content="Nom" IsSelected="{Binding TriParValeur, Converter={StaticResource InverseBooleanConverter}}"/>
                 </ComboBox>
+                <Rectangle Width="1" Height="24" Fill="Gray" Margin="8,0,8,0"/>
+                <TextBlock x:Name="AscendingLabel" Text="Croissant:" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="Bold"/>
                 <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                            IsChecked="{Binding TriCroissant}"
-                            ToolTip="Tri croissant/décroissant"
-                            Margin="0,0,8,0"/>
-                <TextBlock Text="Croissant" VerticalAlignment="Center"/>
+                              IsChecked="{Binding TriCroissant}"
+                              ToolTip="Tri croissant/décroissant"
+                              Margin="0,0,0,0"/>
             </StackPanel>
         </Grid>
 
@@ -189,7 +177,7 @@
                        VerticalAlignment="Center"
                        Margin="0,0,10,0"/>
             <!-- Bouton pour exporter le graphique actuellement affiché en image. -->
-            <Button Content="Exporter graphique"
+            <Button x:Name="ExportChartButton" Content="Exporter graphique"
                     Width="160"
                     Click="ExporterGraphique_Click"
                     VerticalAlignment="Center"/>

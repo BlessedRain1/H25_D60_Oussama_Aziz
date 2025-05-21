@@ -153,9 +153,6 @@
   <data name="Liste des participants" xml:space="preserve">
     <value>Liste Des Participants</value>
   </data>
-  <data name="Nom :" xml:space="preserve">
-    <value>Nom :</value>
-  </data>
   <data name="Nom Activité" xml:space="preserve">
     <value>Nom Activité</value>
   </data>
@@ -263,5 +260,44 @@
   </data>
   <data name="Couleur secondaire" xml:space="preserve">
     <value>Couleur secondaire</value>
+  </data>
+  <data name="Type de graphique :" xml:space="preserve">
+    <value>Type de graphique :</value>
+  </data>
+  <data name="Soldes par participant" xml:space="preserve">
+    <value> Soldes par participant</value>
+  </data>
+  <data name="Dépenses par participant" xml:space="preserve">
+    <value>Dépenses par participant</value>
+  </data>
+  <data name="Période :" xml:space="preserve">
+    <value>Période :</value>
+  </data>
+  <data name="Trier par :" xml:space="preserve">
+    <value>Trier par :</value>
+  </data>
+  <data name="Valeur" xml:space="preserve">
+    <value>Valeur</value>
+  </data>
+  <data name="Nom" xml:space="preserve">
+    <value>Nom</value>
+  </data>
+  <data name="Croissant" xml:space="preserve">
+    <value>Croissant</value>
+  </data>
+  <data name="Exporter graphique" xml:space="preserve">
+    <value>Exporter graphique</value>
+  </data>
+  <data name="Nom :" xml:space="preserve">
+    <value>Nom :</value>
+  </data>
+  <data name="Sélectionnez une activité :" xml:space="preserve">
+    <value>Sélectionnez une activité :</value>
+  </data>
+  <data name="Au :" xml:space="preserve">
+    <value>Au :</value>
+  </data>
+  <data name="Graphique" xml:space="preserve">
+    <value>Graphique</value>
   </data>
 </root>

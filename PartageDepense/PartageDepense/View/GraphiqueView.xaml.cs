@@ -16,6 +16,7 @@ using LiveCharts;
 using LiveCharts.Wpf;
 using Microsoft.Win32;
 using System.IO;
+using PartageDepense.Language;
 
 namespace PartageDepense.View
 {
@@ -25,12 +26,45 @@ namespace PartageDepense.View
     /// </summary>
     public partial class GraphiqueView : UserControl
     {
+        public string? CultureCode
+        {
+            set
+            {
+                LanguageManager.SetCulture(value);
+                UpdateUI();
+            }
+        }
+
+        public static readonly DependencyProperty CultureCodeProperty =
+            DependencyProperty.Register("CultureCode", typeof(string), typeof(GraphiqueView), new PropertyMetadata(null, new PropertyChangedCallback(OnCultureCodeChanged)));
+
+        private static void OnCultureCodeChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((GraphiqueView)d).CultureCode = (string)e.NewValue;
+        }
+
         /// <summary>
         /// Constructeur de la vue GraphiqueView.
         /// </summary>
         public GraphiqueView()
         {
             InitializeComponent();
+            UpdateUI();
+        }
+
+        public void UpdateUI()
+        {
+            SelectActivityLabel.Text = LanguageManager.GetString("Sélectionnez une activité :");
+            ChartTypeLabel.Text = LanguageManager.GetString("Type de graphique :");
+            BalanceRadio.Content = LanguageManager.GetString("Soldes par participant");
+            ExpenseRadio.Content = LanguageManager.GetString("Dépenses par participant");
+            PeriodLabel.Text = LanguageManager.GetString("Période :");
+            ToLabel.Text = LanguageManager.GetString("Au :");
+            SortByLabel.Text = LanguageManager.GetString("Trier par :");
+            ValueSortItem.Content = LanguageManager.GetString("Valeur");
+            NameSortItem.Content = LanguageManager.GetString("Nom");
+            AscendingLabel.Text = LanguageManager.GetString("Croissant");
+            ExportChartButton.Content = LanguageManager.GetString("Exporter graphique");
         }
 
         /// <summary>
@@ -107,7 +141,12 @@ namespace PartageDepense.View
                     encoder.Save(fs);
                 }
                 // Affiche un message de confirmation à l'utilisateur.
-                MessageBox.Show("Graphique exporté avec succès !", "Export", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(
+                    "Export a été fait avec succès !",
+                    "Export",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information
+                );
             }
         }
     }

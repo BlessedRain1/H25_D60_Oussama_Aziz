@@ -105,6 +105,16 @@ namespace PartageDepense.View
                     textBlock.Text = LanguageManager.GetString("Palette"); 
                 }
             }
+
+            if (TabItemGraphique != null)
+            {
+                var headerPal = TabItemGraphique.Header as StackPanel;
+                var textBlock = headerPal?.Children.OfType<TextBlock>().FirstOrDefault();
+                if (textBlock != null)
+                {
+                    textBlock.Text = LanguageManager.GetString("Graphique");
+                }
+            }
         }
 
         private async void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)

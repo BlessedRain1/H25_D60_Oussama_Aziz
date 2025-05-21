@@ -26,9 +26,10 @@ namespace PartageDepense.Language
 
         public static void SetCulture(string? cultureCode)
         {
-            if (cultureCode == null) cultureCode = "";
-
-            _currentCulture = new CultureInfo(cultureCode.ToLower());
+            if (string.IsNullOrWhiteSpace(cultureCode))
+                _currentCulture = CultureInfo.CurrentUICulture;
+            else
+                _currentCulture = new CultureInfo(cultureCode);
         }
     }
 }
