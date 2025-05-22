@@ -31,6 +31,22 @@
     {
       "Nom": "egegre",
       "Prenom": "wedfwdfedf"
+    },
+    {
+      "Nom": "sabiri",
+      "Prenom": "ahmed"
+    },
+    {
+      "Nom": "dizzy",
+      "Prenom": "dross"
+    },
+    {
+      "Nom": "ras",
+      "Prenom": "web"
+    },
+    {
+      "Nom": "elgrande",
+      "Prenom": "toto"
     }
   ],
   "LesActivites": [
@@ -95,6 +111,22 @@
         {
           "Nom": "wwfrg",
           "Prenom": "grgrewe"
+        },
+        {
+          "Nom": "elgrande",
+          "Prenom": "toto"
+        },
+        {
+          "Nom": "ras",
+          "Prenom": "web"
+        },
+        {
+          "Nom": "dizzy",
+          "Prenom": "dross"
+        },
+        {
+          "Nom": "sabiri",
+          "Prenom": "ahmed"
         }
       ],
       "LesDepenses": [
@@ -151,6 +183,33 @@
             "Nom": "kader",
             "Prenom": "hamid"
           }
+        },
+        {
+          "Montant": 24,
+          "Description": "kinder",
+          "Date": "2025-05-23T00:00:00",
+          "Participant": {
+            "Nom": "dizzy",
+            "Prenom": "dross"
+          }
+        },
+        {
+          "Montant": 14,
+          "Description": "peanuts",
+          "Date": "2025-05-07T00:00:00",
+          "Participant": {
+            "Nom": "elgrande",
+            "Prenom": "toto"
+          }
+        },
+        {
+          "Montant": 10,
+          "Description": "couscous",
+          "Date": "2025-05-31T00:00:00",
+          "Participant": {
+            "Nom": "sabiri",
+            "Prenom": "ahmed"
+          }
         }
       ],
       "LesRemboursements": [],
@@ -160,7 +219,7 @@
             "Nom": "Jacob",
             "Prenom": "St-Hilaire"
           },
-          "Solde": -13.666666666666666666666666667,
+          "Solde": -7.4,
           "Etat": "non rembours\u00E9"
         },
         {
@@ -168,7 +227,7 @@
             "Nom": "kader",
             "Prenom": "hamid"
           },
-          "Solde": 32.333333333333333333333333333,
+          "Solde": 38.6,
           "Etat": "non r\u00E9cup\u00E9r\u00E9"
         },
         {
@@ -176,7 +235,7 @@
             "Nom": "oussama",
             "Prenom": "aziz"
           },
-          "Solde": 57.333333333333333333333333333,
+          "Solde": 63.6,
           "Etat": "non r\u00E9cup\u00E9r\u00E9"
         },
         {
@@ -184,7 +243,7 @@
             "Nom": "gaetabn",
             "Prenom": "ahha"
           },
-          "Solde": -20.666666666666666666666666667,
+          "Solde": -14.4,
           "Etat": "non rembours\u00E9"
         },
         {
@@ -192,7 +251,7 @@
             "Nom": "egegre",
             "Prenom": "wedfwdfedf"
           },
-          "Solde": -27.666666666666666666666666667,
+          "Solde": -21.4,
           "Etat": "non rembours\u00E9"
         },
         {
@@ -200,12 +259,44 @@
             "Nom": "wwfrg",
             "Prenom": "grgrewe"
           },
-          "Solde": -27.666666666666666666666666667,
+          "Solde": -21.4,
+          "Etat": "non rembours\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "elgrande",
+            "Prenom": "toto"
+          },
+          "Solde": -7.4,
+          "Etat": "non rembours\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "ras",
+            "Prenom": "web"
+          },
+          "Solde": -21.4,
+          "Etat": "non rembours\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "dizzy",
+            "Prenom": "dross"
+          },
+          "Solde": 2.6,
+          "Etat": "non r\u00E9cup\u00E9r\u00E9"
+        },
+        {
+          "Participant": {
+            "Nom": "sabiri",
+            "Prenom": "ahmed"
+          },
+          "Solde": -11.4,
           "Etat": "non rembours\u00E9"
         }
       ]
     }
   ],
-  "Date": "2025-05-21T01:09:10.4204399-04:00",
+  "Date": "2025-05-22T01:07:42.3855887-04:00",
   "Description": null
 }

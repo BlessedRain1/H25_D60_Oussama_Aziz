@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using PartageDepense.View;
 
 namespace PartageDepense.ViewModel
 {
@@ -373,23 +374,23 @@ namespace PartageDepense.ViewModel
                 return;
             }
 
-            // Couleurs prédéfinies pour les segments du camembert.
-            var colors = new[]
-            {
-                System.Windows.Media.Color.FromRgb(33, 150, 243),   // Blue
-                System.Windows.Media.Color.FromRgb(244, 67, 54),    // Red
-                System.Windows.Media.Color.FromRgb(255, 193, 7),    // Yellow
-                System.Windows.Media.Color.FromRgb(96, 125, 139)    // Gray
-            };
-
             PieSeries.Clear();
+
+            // Utilise toutes les couleurs de l'énumération Couleurs
+            var allColorsEnum = Enum.GetValues(typeof(Couleurs)).Cast<Couleurs>().ToList();
+            var random = new Random();
+
+            // Mélange la liste des couleurs aléatoirement
+            var shuffledColorsEnum = allColorsEnum.OrderBy(c => random.Next()).ToList();
 
             // Crée une série pour chaque part du camembert (chaque participant).
             for (int i = 0; i < resultats.Count; i++)
             {
                 var data = resultats[i];
-                // Assigne une couleur cycliquement à chaque part.
-                var color = new System.Windows.Media.SolidColorBrush(colors[i % colors.Length]);
+                
+                // Assigne une couleur de la liste mélangée, en cyclant si nécessaire
+                var colorEnum = shuffledColorsEnum[i % shuffledColorsEnum.Count];
+                var color = new System.Windows.Media.SolidColorBrush(Couleur.GetColorFromCouleurs(colorEnum));
 
                 PieSeries.Add(new PieSeries
                 {
