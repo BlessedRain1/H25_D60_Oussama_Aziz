@@ -154,6 +154,28 @@
                         </Style>
                     </lvc:PieChart.Resources>
                 </lvc:PieChart>
+
+                <!-- DataGrid pour afficher les dépenses individuelles du participant sélectionné -->
+                <!-- Ajout d'un bouton pour masquer le DataGrid -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0"
+                            Visibility="{Binding IsIndividualExpensesVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Button Content="Masquer les détails" Command="{Binding HideIndividualExpensesCommand}"/>
+                </StackPanel>
+
+                <DataGrid x:Name="IndividualExpensesDataGrid"
+                          ItemsSource="{Binding IndividualParticipantExpenses}"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True"
+                          Visibility="{Binding IsIndividualExpensesVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Margin="0,20,0,0"
+                          Height="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+                        <DataGridTextColumn Header="Montant" Binding="{Binding Montant, StringFormat='{}{0:N2} $'}" Width="Auto"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='{}{0:d}'}" Width="Auto"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+
             </Grid>
 
             <!-- Message utilisateur -->

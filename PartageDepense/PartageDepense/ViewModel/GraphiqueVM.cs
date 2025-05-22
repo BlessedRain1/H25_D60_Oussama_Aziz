@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using PartageDepense.View;
+using CommunityToolkit.Mvvm.Input;
 
 namespace PartageDepense.ViewModel
 {
@@ -97,6 +98,28 @@ namespace PartageDepense.ViewModel
         /// </summary>
         [ObservableProperty]
         private string? messageGraphique;
+
+        /// <summary>
+        /// Liste des dépenses individuelles du participant sélectionné dans le graphique.
+        /// </summary>
+        [ObservableProperty]
+        private ObservableCollection<Depense>? individualParticipantExpenses;
+
+        /// <summary>
+        /// Indique si le DataGrid des dépenses individuelles doit être visible.
+        /// </summary>
+        [ObservableProperty]
+        private bool isIndividualExpensesVisible = false;
+
+        /// <summary>
+        /// Commande pour masquer la liste des dépenses individuelles.
+        /// </summary>
+        [RelayCommand]
+        private void HideIndividualExpenses()
+        {
+            IsIndividualExpensesVisible = false;
+            IndividualParticipantExpenses = null; // Optionnel: libérer la mémoire lorsque caché
+        }
 
         /// <summary>
         /// Résumé dynamique des données affichées sur le graphique.
@@ -345,6 +368,9 @@ namespace PartageDepense.ViewModel
             if (ActiviteSelectionnee == null)
                 return;
 
+            // Masquer la liste des dépenses individuelles par défaut
+            IsIndividualExpensesVisible = false;
+
             // Obtient les données de dépenses par participant depuis l'activité
             var resultats = ActiviteSelectionnee.ObtenirGraphiqueDepenses()
                 .Where(r => r.Date >= DateDebut && r.Date <= DateFin)
@@ -405,6 +431,62 @@ namespace PartageDepense.ViewModel
 
             // Calcule et met à jour le résumé dynamique pour les dépenses.
             ResumeGraphique = $"Participants : {resultats.Count} | Dépenses totales : {resultats.Sum(r => r.Value):N2} $ | Dépense moyenne : {(resultats.Count > 0 ? resultats.Average(r => r.Value) : 0):N2} $";
+        }
+
+        /// <summary>
+        /// Récupère les dépenses individuelles pour un participant donné.
+        /// </summary>
+        /// <param name="participantNom">Le nom du participant.</param>
+        public void GetIndividualExpenses(string participantNom)
+        {
+            if (ActiviteSelectionnee == null)
+            {
+                IndividualParticipantExpenses = null;
+                IsIndividualExpensesVisible = false;
+                // Commenté pour ne pas afficher de message inutile si l'activité n'est pas sélectionnée
+                // System.Diagnostics.Debug.WriteLine("GraphiqueVM: ActiviteSelectionnee is null.");
+                return;
+            }
+
+            // Débogage: Afficher le nom du participant recherché et la période de date
+            System.Diagnostics.Debug.WriteLine($"GraphiqueVM: Recherche des dépenses pour participant='{participantNom}' entre {DateDebut:d} et {DateFin:d}");
+            
+            // Débogage: Afficher le nombre total de dépenses dans l'activité
+            System.Diagnostics.Debug.WriteLine($"GraphiqueVM: Total des dépenses dans l'activité : {ActiviteSelectionnee.LesDepenses.Count}");
+
+            // Filtrer les dépenses de l'activité pour le participant spécifié et la période de date
+            // Rendre la comparaison de nom insensible à la casse et ignorer les espaces blancs
+            var individualExpenses = ActiviteSelectionnee.LesDepenses
+                .Where(d =>
+                {
+                    // Gérer le cas où d.Participant, d.Participant.Prenom ou d.Participant.Nom est null
+                    string expenseParticipantFullName = $"{d.Participant?.Prenom} {d.Participant?.Nom}".Trim();
+                    string searchParticipantName = participantNom?.Trim() ?? string.Empty;
+
+                    bool nameMatch = expenseParticipantFullName.Equals(searchParticipantName, StringComparison.OrdinalIgnoreCase);
+                    bool dateMatch = d.Date >= DateDebut && d.Date <= DateFin;
+
+                    // Débogage: Afficher les détails de chaque dépense lors du filtrage
+                    System.Diagnostics.Debug.WriteLine($"  Participant Dépense: '{d.Participant?.Prenom} {d.Participant?.Nom}', Recherché: '{participantNom}', Date: {d.Date:d}, Montant: {d.Montant}, NameMatch: {nameMatch}, DateMatch: {dateMatch}, TotalMatch: {nameMatch && dateMatch}");
+
+                    return nameMatch && dateMatch;
+                })
+                .ToList();
+
+            if (individualExpenses.Count == 0)
+            {
+                // Afficher un message si aucune dépense n'est trouvée
+                // System.Windows.MessageBox.Show($"Aucune dépense trouvée pour {participantNom} dans la période sélectionnée.", "Information", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                System.Diagnostics.Debug.WriteLine($"GraphiqueVM: Aucune dépense trouvée après filtrage pour {participantNom}");
+                IndividualParticipantExpenses = null;
+                IsIndividualExpensesVisible = false;
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"GraphiqueVM: {individualExpenses.Count} dépenses trouvées pour {participantNom}");
+                IndividualParticipantExpenses = new ObservableCollection<Depense>(individualExpenses);
+                IsIndividualExpensesVisible = true;
+            }
         }
     }
 }

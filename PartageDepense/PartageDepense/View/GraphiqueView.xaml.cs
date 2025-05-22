@@ -86,6 +86,19 @@ namespace PartageDepense.View
             // Déplace légèrement le segment sélectionné
             var selectedSeries = (PieSeries)chartPoint.SeriesView;
             selectedSeries.PushOut = 8;
+
+            // Obtenir le DataContext (le ViewModel)
+            if (DataContext is ViewModel.GraphiqueVM viewModel)
+            {
+                // Obtenir le nom du participant à partir du titre de la série cliquée
+                string? participantName = selectedSeries.Title;
+
+                if (!string.IsNullOrEmpty(participantName))
+                {
+                    // Appeler la méthode dans le ViewModel pour afficher les dépenses individuelles
+                    viewModel.GetIndividualExpenses(participantName);
+                }
+            }
         }
 
         /// <summary>
