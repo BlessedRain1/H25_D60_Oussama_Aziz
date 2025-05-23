@@ -48,7 +48,6 @@ namespace PartageDepense.View
         /// </summary>
         public GraphiqueView()
         {
-            LanguageManager.SetCulture(Thread.CurrentThread.CurrentUICulture.Name);
             InitializeComponent();
             UpdateUI();
         }

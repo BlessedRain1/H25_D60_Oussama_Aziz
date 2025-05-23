@@ -165,9 +165,9 @@
                           Height="200"
                           HorizontalAlignment="Center">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
-                        <DataGridTextColumn Header="Montant" Binding="{Binding Montant, StringFormat='{}{0:N2} $'}" Width="Auto"/>
-                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='{}{0:d}'}" Width="Auto"/>
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="150"/>
+                        <DataGridTextColumn Header="Montant" Binding="{Binding Montant, StringFormat='{}{0:N2} $'}" Width="150"/>
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat='{}{0:d}'}" Width="150"/>
                     </DataGrid.Columns>
                 </DataGrid>
 
