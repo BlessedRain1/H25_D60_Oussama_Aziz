@@ -345,7 +345,7 @@ namespace PartageDepense.ViewModel
                 else
                 {
                     positiveSeries.Values.Add(0.0); // Ajoute 0 pour cette série
-                    negativeSeries.Values.Add(Math.Abs(resultat.Value)); // Ajoute la valeur absolue pour les barres négatives
+                    negativeSeries.Values.Add(resultat.Value); // Ajoute la valeur négative pour les barres négatives
                 }
             }
 
